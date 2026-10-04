@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immersive Multi-Domain Decision-Making Trainer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark', fontFamily: 'ui-sans-serif, system-ui, sans-serif' });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+            background-color: #0f172a; 
+            color: #e2e8f0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+        }
+        .glass-card { 
+            background: rgba(30, 41, 59, 0.7); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            padding: 2.5rem; 
+            margin-bottom: 2rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2); 
+        }
+        h1 { font-size: 2.5rem; font-weight: 800; color: #60a5fa; margin-bottom: 1rem; border-bottom: 2px solid #334155; padding-bottom: 1rem; }
+        h2 { font-size: 1.8rem; font-weight: 700; color: #93c5fd; margin-top: 1rem; margin-bottom: 1.5rem; }
+        h3 { font-size: 1.3rem; font-weight: 600; color: #bfdbfe; margin-top: 1.5rem; margin-bottom: 1rem; }
+        p { margin-bottom: 1.25rem; color: #cbd5e1; }
+        ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1; }
+        li { margin-bottom: 0.5rem; }
+        .interactive-zone { 
+            background: #0b1120; 
+            border: 1px dashed #475569; 
+            border-radius: 8px; 
+            padding: 1.5rem; 
+            margin: 2rem 0; 
+        }
+        input[type=range] { 
+            width: 100%; 
+            margin: 15px 0; 
+            accent-color: #3b82f6; 
+            cursor: pointer;
+        }
+        .label-flex { display: flex; justify-content: space-between; font-size: 0.95rem; color: #94a3b8; font-weight: 600; }
+        .highlight-box { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; margin: 1.5rem 0; }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-5xl mx-auto">
+
+    <h1>Multi-Domain DDIL Decision-Making Trainer</h1>
+    <p class="text-lg text-slate-300">A comprehensive technical specification and functional prototype for training military commanders in Denied, Degraded, Intermittent, and Limited (DDIL) environments.</p>
+
+    <!-- SECTION 1 -->
+    <div class="glass-card mt-8">
+        <h2>1. Operational Context & Tactical Requirements</h2>
+        <p>Current military exercises often assume continuous, high-bandwidth connectivity. In a peer-to-peer conflict, Electronic Warfare (EW) and cyber disruption ensure that networks will fail exactly when time-critical decisions are required.</p>
+        <p>This software trains commanders to lead when digital situational awareness collapses. It does not teach them how to fix the radios; it tests their psychological resilience and adaptability when forced to rely on analog methods, incomplete data, and intuition.</p>
+        
+        <h3>Modern Communications Defense</h3>
+        <ul>
+            <li><strong>LPI/LPD (Low Probability of Intercept/Detection):</strong> Use of mmWave beamforming and signal masking to hide transmissions below the environmental noise floor.</li>
+            <li><strong>Frequency Hopping:</strong> Software-Defined Radios (SDR) shifting across hundreds of frequencies per second to avoid narrowband jamming.</li>
+            <li><strong>Self-Healing MANETs:</strong> Mobile Ad-Hoc Networks where every soldier and drone acts as a router, ensuring data bypasses severed nodes.</li>
+        </ul>
+        <div class="highlight-box">
+            <strong>The Core Training Directive:</strong> The AI Companion serves as a critical test variable. The simulation will intentionally spoof the AI's data feeds. The trainee is evaluated on their ability to recognize corrupted logic and override the AI, testing for <em>Automation Bias</em>.
+        </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="glass-card">
+        <h2>2. Simulation Architecture & Chaos Engine</h2>
+        <p>To recreate DDIL conditions, the application cannot use a standard client-server game loop. It utilizes a <strong>Degradation Proxy</strong> (the Chaos Engine) situated between the Simulation State Server and the Trainee Clients. This proxy actively intercepts, delays, and corrupts packets based on the Instructor's commands and the server's RF physics engine.</p>
+        
+        <div class="interactive-zone">
+            <h3 class="mt-0 text-center text-slate-400 text-sm uppercase tracking-wider">Network Architecture Flow</h3>
+            <pre class="mermaid">
+                graph TD
+                A[Instructor Dashboard] -->|Injects Jamming/Latency| B(Degradation Proxy / Chaos Engine)
+                C[Sim State Server] -->|Clean Positional Data| B
+                B -->|Corrupted Data / Ghost Blips| D[Trainee Client A - UE5/React]
+                B -->|Dropped VoIP Packets| E[Trainee Client B - UE5/React]
+                style B fill:#7f1d1d,stroke:#f87171,stroke-width:2px,color:#fff
+                style A fill:#1e40af,stroke:#60a5fa,color:#fff
+                style C fill:#064e3b,stroke:#34d399,color:#fff
+            </pre>
+        </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="glass-card">
+        <h2>3. VoIP Degradation & Digital Signal Processing</h2>
+        <p>Voice comms degradation is handled purely on the client side using the <strong>Web Audio API</strong> to save server compute. The server sends a lightweight interference value (SINR), and the client manipulates the incoming WebRTC stream through a mathematical DSP node graph.</p>
+        
+        <ul>
+            <li><strong>Tactical Handset EQ:</strong> A Bandpass filter (300Hz–3kHz) strips high/low frequencies to simulate military radio compression.</li>
+            <li><strong>Cryptographic Desynchronization:</strong> An AudioWorklet Bitcrusher artificially reduces bit-depth to simulate failing digital decryption, creating robotic artifacts.</li>
+            <li><strong>Signal Gating:</strong> A Low-Frequency Oscillator (LFO) rapidly toggles a Gain node to mimic the harsh stuttering of moving behind terrain.</li>
+        </ul>
+
+        <div class="interactive-zone">
+            <h3 class="mt-0 text-center text-slate-400 text-sm uppercase tracking-wider">Client-Side Web Audio API Intercept</h3>
+            <pre class="mermaid">
+                graph LR
+                A[Incoming WebRTC] --> B[Bandpass Filter<br/>300Hz-3kHz]
+                B --> C[Bitcrusher<br/>Sample Rate Drop]
+                C --> D[Gating / Dropouts<br/>Gain Node controlled by LFO]
+                E[White Noise Buffer] --> F[Noise Gain<br/>Jammer Intensity]
+                D --> G((Headset Output))
+                F --> G
+                style E fill:#475569,stroke:#94a3b8,color:#fff
+                style G fill:#b45309,stroke:#fbbf24,color:#fff
+            </pre>
+        </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="glass-card">
+        <h2>4. Live RF Link Budget & Jamming Calculator</h2>
+        <p>The simulation server continuously calculates the <strong>Signal-to-Interference-plus-Noise Ratio (SINR)</strong>. It compares the Free Space Path Loss (FSPL) of the friendly transmission against the path loss of the hostile jammer. Adjust the variables below to see how the server algorithm maps physical distances to real-time trainee audio degradation.</p>
+        
+        <div class="interactive-zone grid md:grid-cols-2 gap-8">
+            <div class="bg-slate-900 p-6 rounded-lg border border-slate-700">
+                <h4 class="text-blue-400 font-bold mb-4 uppercase text-sm">Friendly Comms Link</h4>
+                <label class="block text-sm font-medium text-slate-300">Transmit Power</label>
+                <input type="range" id="txPower" min="1" max="100" value="10">
+                <div class="label-flex"><span class="text-xs">1W</span><span id="txVal" class="text-blue-300 font-bold">10 W</span><span class="text-xs">100W</span></div>
+                
+                <label class="block text-sm font-medium text-slate-300 mt-5">Distance to Receiver</label>
+                <input type="range" id="txDist" min="1" max="50" value="5">
+                <div class="label-flex"><span class="text-xs">1km</span><span id="distVal" class="text-blue-300 font-bold">5 km</span><span class="text-xs">50km</span></div>
+
+                <div class="w-full h-px bg-slate-700 my-6"></div>
+
+                <h4 class="text-red-400 font-bold mb-4 uppercase text-sm">Hostile EW Asset</h4>
+                <label class="block text-sm font-medium text-slate-300">Jammer Output Power</label>
+                <input type="range" id="jamPower" min="0" max="1000" value="150">
+                <div class="label-flex"><span class="text-xs">0W</span><span id="jamVal" class="text-red-400 font-bold">150 W</span><span class="text-xs">1000W</span></div>
+
+                <label class="block text-sm font-medium text-slate-300 mt-5">Jammer Distance to Receiver</label>
+                <input type="range" id="jamDist" min="1" max="50" value="12">
+                <div class="label-flex"><span class="text-xs">1km</span><span id="jamDistVal" class="text-red-400 font-bold">12 km</span><span class="text-xs">50km</span></div>
+            </div>
+            
+            <div class="flex flex-col justify-center items-center bg-slate-950 rounded-lg p-6 border border-slate-800 shadow-inner">
+                <h4 class="text-slate-400 uppercase tracking-widest text-xs mb-2">Calculated SINR (Receiver)</h4>
+                <div id="sinrDisplay" class="text-6xl font-black text-emerald-400 mb-8 drop-shadow-lg">12 dB</div>
+                
+                <h4 class="text-slate-400 uppercase tracking-widest text-xs mb-2">DSP VoIP Effect Applied</h4>
+                <div id="voiceStatus" class="text-xl font-bold px-6 py-4 rounded-lg text-center shadow-lg transition-all duration-300 w-full">Light Static</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="glass-card">
+        <h2>5. The Instructor Dashboard</h2>
+        <p>The Instructor acts as the adversary. The dashboard consists of three primary zones:</p>
+        <ul>
+            <li><strong>The COP (Common Operating Picture):</strong> Instructors can toggle between "Ground Truth" (reality) and "Trainee View" (what the trainee actually sees on their jammed screen).</li>
+            <li><strong>Chaos Controls:</strong> Drag-and-drop mechanics to apply Area-of-Effect (AoE) broadband jamming over specific grid squares, or targeted cyber injections (e.g., delaying a drone feed by 3 minutes).</li>
+            <li><strong>Comms Matrix:</strong> A live node-graph of the squad. Solid green lines represent clear comms, while dashed red lines indicate links severed by EW, allowing the instructor to see isolation in real-time.</li>
+        </ul>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="glass-card">
+        <h2>6. Automated AAR: The Cognitive DNA Profiler</h2>
+        <p>The After Action Review (AAR) engine logs the "Reality Delta." It maps the trainee's decision-making timeline against the actual ground truth, tracking exact millisecond delays (Decision Latency) and instances of Automation Bias.</p>
+        
+        <div class="interactive-zone">
+            <h3 class="mt-0 text-center text-slate-400 text-sm uppercase tracking-wider mb-6">Interactive Timeline: Ground Truth vs. Trainee Action</h3>
+            <div style="height: 300px; width: 100%;">
+                <canvas id="aarChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="bg-slate-900 p-6 rounded-lg mt-6 border-l-4 border-rose-500 shadow-lg">
+            <h4 class="text-rose-400 font-bold text-xl mb-3 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                Automated Clinical Diagnosis
+            </h4>
+            <div class="space-y-4">
+                <div>
+                    <span class="text-slate-400 uppercase text-xs font-bold tracking-wider block">Diagnosis</span>
+                    <span class="text-lg text-slate-100">Acute Automation Bias & Decision Paralysis under EW Stress.</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 uppercase text-xs font-bold tracking-wider block">Symptoms (Evidence)</span>
+                    <span class="text-slate-300">Trainee experienced a 4-minute decision latency when digital feeds were severed at T+02:00. Rather than executing the standard PACE (Primary, Alternate, Contingency, Emergency) comms plan, trainee relied on a spoofed AI waypoint derived from corrupted data, resulting in unit encirclement.</span>
+                </div>
+                <div>
+                    <span class="text-emerald-400 uppercase text-xs font-bold tracking-wider block">Prescription (Corrective Action)</span>
+                    <span class="text-emerald-50">Trainee must repeat DDIL Scenario B with zero digital map access from start-to-finish to rebuild confidence in analog terrain association and physical scout reporting.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* --- LINK BUDGET CALCULATOR LOGIC --- */
+        const txPowerSlider = document.getElementById('txPower');
+        const txDistSlider = document.getElementById('txDist');
+        const jamPowerSlider = document.getElementById('jamPower');
+        const jamDistSlider = document.getElementById('jamDist');
+        
+        const txVal = document.getElementById('txVal');
+        const distVal = document.getElementById('distVal');
+        const jamVal = document.getElementById('jamVal');
+        const jamDistVal = document.getElementById('jamDistVal');
+        
+        const sinrDisplay = document.getElementById('sinrDisplay');
+        const voiceStatus = document.getElementById('voiceStatus');
+
+        function calculateSINR() {
+            // Update UI Labels
+            txVal.innerText = txPowerSlider.value + ' W';
+            distVal.innerText = txDistSlider.value + ' km';
+            jamVal.innerText = jamPowerSlider.value + ' W';
+            jamDistVal.innerText = jamDistSlider.value + ' km';
+
+            // Inverse Square Law Abstraction for Signal Power
+            const txP = parseFloat(txPowerSlider.value);
+            const txD = parseFloat(txDistSlider.value);
+            const sigPower = txP / (txD * txD);
+
+            // Inverse Square Law Abstraction for Jammer Power
+            const jamP = parseFloat(jamPowerSlider.value);
+            const jamD = parseFloat(jamDistSlider.value);
+            const noisePower = (jamP / (jamD * jamD)) + 0.001; // Avoid divide by zero, add ambient noise floor
+
+            // Calculate SINR in Decibels
+            const sinrLinear = sigPower / noisePower;
+            let sinrDb = 10 * Math.log10(sinrLinear);
+            sinrDb = Math.round(sinrDb * 10) / 10; // Round to 1 decimal
+
+            // Cap display extremes for UI purposes
+            if(sinrDb > 40) sinrDb = 40.0;
+            if(sinrDb < -20) sinrDb = -20.0;
+
+            sinrDisplay.innerText = sinrDb.toFixed(1) + ' dB';
+
+            // DSP Mapping Logic
+            if (sinrDb > 15) {
+                sinrDisplay.className = 'text-6xl font-black text-emerald-400 mb-8 drop-shadow-[0_0_15px_rgba(52,211,153,0.5)]';
+                voiceStatus.innerText = 'Clear Audio (DSP Bypassed)';
+                voiceStatus.className = 'text-xl font-bold px-6 py-4 rounded-lg bg-emerald-900/50 text-emerald-300 border border-emerald-500 w-full transition-all';
+            } else if (sinrDb > 5) {
+                sinrDisplay.className = 'text-6xl font-black text-amber-400 mb-8 drop-shadow-[0_0_15px_rgba(251,191,36,0.5)]';
+                voiceStatus.innerText = 'Heavy Static & Bitcrushing';
+                voiceStatus.className = 'text-xl font-bold px-6 py-4 rounded-lg bg-amber-900/50 text-amber-300 border border-amber-500 w-full transition-all';
+            } else {
+                sinrDisplay.className = 'text-6xl font-black text-rose-500 mb-8 drop-shadow-[0_0_15px_rgba(244,63,94,0.5)]';
+                voiceStatus.innerText = 'Signal Severed (LFO Muted)';
+                voiceStatus.className = 'text-xl font-bold px-6 py-4 rounded-lg bg-rose-900/50 text-rose-300 border border-rose-500 w-full transition-all';
+            }
+        }
+
+        // Attach Event Listeners
+        [txPowerSlider, txDistSlider, jamPowerSlider, jamDistSlider].forEach(slider => {
+            slider.addEventListener('input', calculateSINR);
+        });
+        
+        // Initial Calculation
+        calculateSINR();
+
+        /* --- AAR CHART.JS GANTT LOGIC --- */
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('aarChart').getContext('2d');
+            
+            // Custom plugin to draw floating bars properly for Chart.js v3+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ground Truth', 'Perceived Truth (Trainee)', 'Trainee Action'],
+                    datasets: [
+                        { label: 'Enemy Maneuver', data: [[0, 10], null, null], backgroundColor: 'rgba(239, 68, 68, 0.8)', borderRadius: 4 },
+                        { label: 'Jamming Active', data: [[2, 10], null, null], backgroundColor: 'rgba(245, 158, 11, 0.8)', borderRadius: 4 },
+                        { label: 'Clean Radar', data: [null, [0, 2], null], backgroundColor: 'rgba(16, 185, 129, 0.8)', borderRadius: 4 },
+                        { label: 'Spoofed UI Map', data: [null, [2, 8], null], backgroundColor: 'rgba(99, 102, 241, 0.8)', borderRadius: 4 },
+                        { label: 'Decision Latency', data: [null, null, [2, 6]], backgroundColor: 'rgba(100, 116, 139, 0.8)', borderRadius: 4 },
+                        { label: 'Flawed AI Trust', data: [null, null, [6, 7]], backgroundColor: 'rgba(225, 29, 72, 1)', borderRadius: 4 },
+                        { label: 'Analog Override', data: [null, null, [8, 10]], backgroundColor: 'rgba(34, 197, 94, 0.8)', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { 
+                            min: 0, 
+                            max: 10, 
+                            title: { display: true, text: 'Mission Time (Minutes)', color: '#94a3b8', font: {size: 14, weight: 'bold'} }, 
+                            ticks: { color: '#cbd5e1' }, 
+                            grid: { color: 'rgba(51, 65, 85, 0.5)' } 
+                        },
+                        y: { 
+                            stacked: false, // Prevents bars from stacking on top of each other
+                            ticks: { color: '#e2e8f0', font: { size: 14, weight: '600' } }, 
+                            grid: { display: false } 
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#cbd5e1', padding: 20 } },
+                        tooltip: { 
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#38bdf8',
+                            bodyFont: { size: 14 },
+                            callbacks: { 
+                                label: function(context) { 
+                                    return `${context.dataset.label}: Minute ${context.raw[0]} to ${context.raw[1]}`; 
+                                } 
+                            } 
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
