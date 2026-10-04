@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DDIL Communications Training Simulator - Updated Tech Spec</title>
+    <title>DDIL Training Simulator - Indian Armed Forces - Tech Spec</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module">
@@ -65,17 +65,17 @@
 <body class="p-8 max-w-5xl mx-auto">
 
     <header class="mb-12 text-center">
-        <h1 class="text-4xl font-bold mb-4">Military DDIL Communications Training Simulator</h1>
-        <p class="text-xl text-slate-400">Technical Specification Document (Corrected Version)</p>
+        <h1 class="text-4xl font-bold mb-4">DDIL Communications Training Simulator for Indian Armed Forces</h1>
+        <p class="text-xl text-slate-400">Technical Specification Document (Corrected & India-Localized)</p>
     </header>
 
     <div class="glass-card">
         <h2>SECTION 1: OPERATIONAL CONTEXT & TACTICAL REQUIREMENTS</h2>
-        <p>Modern multi-domain operations occur in Denied, Degraded, Intermittent, and Limited (DDIL) environments. Adversaries actively employ Electronic Warfare (EW) to jam RF spectrums, spoof sensor feeds, and sever C2 links. Operators must be trained to recognize and fight through these environments using LPI/LPD (Low Probability of Intercept / Low Probability of Detection) techniques, Frequency Hopping Spread Spectrum (FHSS), and self-healing Mobile Ad-hoc Networks (MANETs).</p>
+        <p>Modern multi-domain operations along the LAC and LoC occur in Denied, Degraded, Intermittent, and Limited (DDIL) environments. Adversaries actively employ Electronic Warfare (EW) to jam RF spectrums, spoof sensor feeds, and sever C2 links. The Indian Armed Forces' legacy AREN (Army Radio Engineering Network) is being replaced by the Tactical Communication System (TCS) and BEL's indigenous SDR-Tac (Software Defined Radios) with MANET and FHSS capabilities. Operators must be trained to recognize and fight through degraded comms environments using these next-generation systems.</p>
         
         <div class="highlight-box">
             <h3 class="mt-0 text-blue-300">Tactical AI Automation Bias Test</h3>
-            <p>A critical training requirement is testing <strong>Automation Bias</strong>. The simulator intentionally feeds poisoned or spoofed sensor data to the trainees' tactical displays. Instructors evaluate whether operators blindly trust the degraded systems or cross-reference multiple sensors and human intelligence to override bad AI/system suggestions.</p>
+            <p>A critical training requirement is testing <strong>Automation Bias</strong>. The simulator intentionally feeds poisoned or spoofed sensor data to the trainees' tactical displays. Instructors evaluate whether operators blindly trust the degraded systems or cross-reference multiple sensors and human intelligence to override bad AI/system suggestions. This is essential as the Indian Army integrates AI-enabled C3I systems from DRDO CAIR.</p>
         </div>
     </div>
 
@@ -227,7 +227,7 @@ lfo.start();
         <h2>SECTION 5: RF LINK BUDGET & SINR CALCULATOR</h2>
         
         <div class="highlight-box">
-            <p><strong>Note:</strong> This calculator uses simplified inverse-square-law for demonstration. The production backend uses the full FSPL equation: <code>FSPL(dB) = 20·log₁₀(d) + 20·log₁₀(f) + 32.44</code>, plus Fresnel zone terrain raycasting and knife-edge diffraction loss.</p>
+            <p><strong>Note:</strong> This calculator uses simplified inverse-square-law for demonstration. The production backend uses the full FSPL equation: <code>FSPL(dB) = 20·log₁₀(d) + 20·log₁₀(f) + 32.44</code>, plus Fresnel zone terrain raycasting over ISRO CartoDEM (30m resolution, national coverage via Bhuvan portal) with knife-edge diffraction loss. NASA SRTM provides a global fallback dataset.</p>
         </div>
 
         <div class="interactive-zone">
@@ -291,7 +291,7 @@ lfo.start();
 // Topic: ew.cyber.spoof
 {
   "event_id": "evt_89237498",
-  "timestamp": 1698765432,
+  "timestamp": 1791142000,
   "type": "CYBER_SPOOF",
   "target_entity": "tank_alpha",
   "affected_roles": ["squad_leader_A", "drone_operator"],
@@ -306,11 +306,11 @@ lfo.start();
 
     <div class="glass-card">
         <h2>SECTION 7: INSTRUCTOR DASHBOARD</h2>
-        <p>The web-based instructor interface controls the DDIL scenario in real-time, composed of three main zones:</p>
+        <p>The web-based instructor interface controls the DDIL scenario in real-time, designed for use at Army War College (Mhow), WARDEC (New Delhi), and regional training centres. It is composed of three main zones:</p>
         <ul>
-            <li><strong>COP Map (Common Operational Picture):</strong> Features a Ground Truth vs. Trainee View toggle and a live RF Heatmap overlay calculating path loss and jamming footprints.</li>
-            <li><strong>Chaos Controls:</strong> Drag-and-drop tools for sector jamming, targeted cyber injections, and intensity sliders utilizing <code>ramp_up_sec</code> for subtle degradation over time.</li>
-            <li><strong>Comms Matrix:</strong> A live node graph visualizing voice and data link health (green/yellow/red), along with a "God Mic" override button to speak directly to trainees regardless of simulated network state.</li>
+            <li><strong>COP Map (Common Operational Picture):</strong> Features a Ground Truth vs. Trainee View toggle and a live RF Heatmap overlay calculating path loss and jamming footprints over ISRO CartoDEM terrain.</li>
+            <li><strong>Chaos Controls:</strong> Drag-and-drop tools for sector jamming (replicating Dharashakti-class EW threats), targeted cyber injections, and intensity sliders utilizing <code>ramp_up_sec</code> for subtle degradation over time.</li>
+            <li><strong>Comms Matrix:</strong> A live node graph visualizing voice and data link health (green/yellow/red) across the Integrated Battle Group, along with a "God Mic" override button to speak directly to trainees regardless of simulated network state.</li>
         </ul>
     </div>
 
